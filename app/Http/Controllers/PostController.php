@@ -5,36 +5,65 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-
 class PostController extends Controller
 {
-    function index()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
         // Eloquent ORM -> Get All data from posts table.
         $data = Post::paginate(5);
         // pass data to view.
         return view('post.index', ['posts' => $data], ['pageTitle' => 'Blog']);
     }
-    function show($id)
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('post.create', ['pageTitle' => 'Blog - Create New Post']);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // @TODO: this will be completed in the form section.
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
         $post = Post::findOrFail($id);
         return view('post.show', ['post' => $post], ['pageTitle' => $post->title]);
     }
-    function create()
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
-        // $post = Post::create([
-        //     'title' => 'New Post',
-        //     'body' => 'This is my specail post',
-        //     'author' => 'Belal',
-        //     'published' => true
-        // ]);
-        Post::factory(20)->create();
-        return redirect('/blog');
+        return view('post.edit', ['pageTitle' => 'Blog - Edit Post']);
     }
 
-    function delete()
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
     {
-        Post::destroy(11);
-        return redirect('/blog');
+        // @TODO: this will be completed in the form section.
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }

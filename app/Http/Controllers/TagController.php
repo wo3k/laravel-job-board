@@ -12,30 +12,58 @@ class TagController extends Controller
     function index()
     {
         // Eloquent ORM -> Get All data from Tags table.
-        $data = Tag::all();
+        $data = Tag::paginate(5);
         // pass data to view.
-        return view('tag.index', ['tags' => $data], ['pageTitle' => 'Tags']);
+        return view('tag.index', ['tags' => $data, 'pageTitle' => 'Tags']);
     }
 
-    function create()
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        Tag::create([
-            'title' => 'css',
-        ]);
-        return redirect('/tags');
+        return view('tag.create', ['pageTitle' => 'Blog - Create New Tag']);
     }
 
-    function testManyTomany()
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
-        $post6 = Post::find(6);
-        $post7 = Post::find(7);
+        //
+    }
 
-        // $post6->tags()->attach([1, 2]);
-        $post7->tags()->attach([2]);
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $tag = Tag::findOrFail($id);
+        return view('tag.show', ['tag' => $tag], ['pageTitle' => $tag->title]);
+    }
 
-        return response()->json([
-            'post6' => $post6->tags,
-            'post7' => $post7->tags
-        ]);
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $tag = Tag::find($id);
+        return view('tag.edit', ['tag' => $tag, 'pageTitle' => 'Tags - Edit Tag']);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
