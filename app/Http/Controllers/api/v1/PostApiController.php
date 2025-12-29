@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-
 class PostApiController extends Controller
 {
     /**
